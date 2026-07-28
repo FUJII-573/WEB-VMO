@@ -4,11 +4,10 @@ import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { defineConfig } from "vite";
 
-
-
 const plugins = [react(), tailwindcss(), jsxLocPlugin()];
 
 export default defineConfig({
+  base: "/WEB-VMO/", // เพิ่ม base path เพื่อให้ GitHub Pages โหลดไฟล์ถูกต้อง
   plugins,
   resolve: {
     alias: {
@@ -21,13 +20,12 @@ export default defineConfig({
   root: path.resolve(import.meta.dirname, "client"),
   publicDir: path.resolve(import.meta.dirname, "client", "public"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: path.resolve(import.meta.dirname, "dist"), // ปรับจาก dist/public เป็น dist
     emptyOutDir: true,
   },
   server: {
     host: true,
     allowedHosts: [
-
       "localhost",
       "127.0.0.1",
     ],
