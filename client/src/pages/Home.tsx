@@ -1,3 +1,8 @@
+import { useState, useEffect } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Moon, Sun } from "lucide-react";
+import { useLocation } from "wouter";
+
 type MenuItem = {
   id: number;
   category: string;
@@ -28,11 +33,6 @@ const playClickSound = () => {
     console.error("Audio playback error:", e);
   }
 };
-
-import { useState, useEffect } from "react";
-import { useTheme } from "@/contexts/ThemeContext";
-import { Moon, Sun } from "lucide-react";
-import { useLocation } from "wouter";
 
 export default function Home() {
   const { theme, toggleTheme, switchable } = useTheme();
@@ -580,7 +580,7 @@ export default function Home() {
               <div style={{ fontSize: 12, color: "#d32f2f", fontWeight: "bold", marginTop: 4 }}>
                 {item.price.toLocaleString()} ฿
               </div>
-              <div style={{ fontSize: 11, color: "#777", marginTop: 2 }}>
+              <div style={{ fontSize: 11, color: "var(--text-sub, #777)", marginTop: 2 }}>
                 เหลือ {stock[item.id] ?? 0} ชิ้น
               </div>
               <button
@@ -601,7 +601,7 @@ export default function Home() {
       <h3 style={{ marginTop: 24, color: "#0d47a1" }}>รายการที่เลือก</h3>
 
       {cart.length === 0 && (
-        <p style={{ color: "#888", fontSize: 14 }}>ยังไม่มีสินค้าในตะกร้า</p>
+        <p style={{ color: "var(--text-sub, #888)", fontSize: 14 }}>ยังไม่มีสินค้าในตะกร้า</p>
       )}
 
       {cart.map((i) => (
@@ -657,7 +657,7 @@ export default function Home() {
         <div style={{ ...popupBg, background: "rgba(0,0,0,0.7)" }}>
           <div style={confirmBox} onClick={(e) => e.stopPropagation()}>
             <h3 style={{ marginTop: 0, color: "#0d47a1" }}>ยืนยันการเบิก</h3>
-            <p style={{ marginBottom: 12, color: "#333" }}>
+            <p style={{ marginBottom: 12 }}>
               ผู้เบิก: <strong>{employee}</strong>
             </p>
             <div style={confirmListContainer}>
@@ -745,9 +745,9 @@ const input: React.CSSProperties = {
   marginTop: 10,
   padding: 12,
   borderRadius: 10,
-  border: "1px solid #ccc",
-  background: "#fff",
-  color: "#333",
+  border: "1px solid var(--border, #ccc)",
+  background: "var(--card-bg, #fff)",
+  color: "var(--foreground, #333)",
   boxSizing: "border-box",
 };
 
@@ -758,8 +758,8 @@ const tabs: React.CSSProperties = {
 };
 
 const tab = (active: boolean): React.CSSProperties => ({
-  background: active ? "#0d47a1" : "#e0e0e0",
-  color: active ? "#fff" : "#333",
+  background: active ? "#0d47a1" : "var(--tab-inactive-bg, #e0e0e0)",
+  color: active ? "#fff" : "var(--tab-inactive-color, #333)",
   border: "none",
   padding: "8px 16px",
   borderRadius: 20,
@@ -780,10 +780,10 @@ const card: React.CSSProperties = {
   flexDirection: "column",
   alignItems: "center",
   textAlign: "center",
-  background: "#fff",
+  background: "var(--card-bg, #fff)",
   padding: 12,
   borderRadius: 12,
-  border: "1px solid #e0e0e0",
+  border: "1px solid var(--border, #e0e0e0)",
   boxShadow: "0 2px 5px rgba(0,0,0,0.05)",
 };
 
@@ -810,12 +810,12 @@ const cartRow: React.CSSProperties = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  background: "#fff",
+  background: "var(--card-bg, #fff)",
   padding: 10,
   marginTop: 8,
   borderRadius: 8,
-  border: "1px solid #e0e0e0",
-  color: "#333",
+  border: "1px solid var(--border, #e0e0e0)",
+  color: "var(--foreground, #333)",
 };
 
 const cartActionBtn: React.CSSProperties = {
@@ -834,7 +834,9 @@ const cartQtyInput: React.CSSProperties = {
   marginLeft: "6px",
   marginRight: "6px",
   borderRadius: 4,
-  border: "1px solid #ccc",
+  border: "1px solid var(--border, #ccc)",
+  background: "var(--card-bg, #fff)",
+  color: "var(--foreground, #333)",
   textAlign: "center",
 };
 
@@ -866,19 +868,19 @@ const popupBg: React.CSSProperties = {
 };
 
 const popupBox: React.CSSProperties = {
-  background: "#fff",
+  background: "var(--card-bg, #fff)",
   padding: "16px 24px",
   borderRadius: 12,
-  color: "#333",
+  color: "var(--foreground, #333)",
   fontWeight: "bold",
   boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
 };
 
 const confirmBox: React.CSSProperties = {
-  background: "#fff",
+  background: "var(--card-bg, #fff)",
   padding: 24,
   borderRadius: 16,
-  color: "#333",
+  color: "var(--foreground, #333)",
   boxShadow: "0 6px 16px rgba(0,0,0,0.2)",
   maxWidth: "450px",
   width: "90%",
@@ -889,7 +891,7 @@ const confirmListContainer: React.CSSProperties = {
   maxHeight: "250px",
   overflowY: "auto",
   marginBottom: 16,
-  background: "#f8f9fa",
+  background: "var(--confirm-list-bg, #f8f9fa)",
   padding: 12,
   borderRadius: 8,
 };
@@ -898,8 +900,8 @@ const confirmItemRow: React.CSSProperties = {
   display: "flex",
   justifyContent: "space-between",
   padding: "6px 0",
-  borderBottom: "1px solid #eee",
-  color: "#333",
+  borderBottom: "1px solid var(--border, #eee)",
+  color: "var(--foreground, #333)",
 };
 
 const confirmTotalRow: React.CSSProperties = {
@@ -914,9 +916,9 @@ const confirmTotalRow: React.CSSProperties = {
 const confirmNoteBox: React.CSSProperties = {
   marginBottom: 16,
   padding: 10,
-  background: "#fff8e1",
+  background: "var(--note-bg, #fff8e1)",
   borderRadius: 8,
-  color: "#333",
+  color: "var(--note-color, #333)",
   fontSize: 14,
 };
 
