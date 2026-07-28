@@ -2,7 +2,7 @@ name: Deploy Vite Site to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # หรือ master ขึ้นอยู่กับชื่อ branch หลักของคุณ
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -38,7 +38,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './dist' # หากใน vite.config.ts ตั้ง outDir เป็นชื่ออื่น ให้เปลี่ยนตรงนี้ให้ตรงกัน
 
       - name: Deploy to GitHub Pages
         id: deployment
