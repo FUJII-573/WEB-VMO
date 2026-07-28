@@ -8,34 +8,53 @@ import Home from "./pages/Home";
 import AdminDashboard from "./pages/AdminDashboard";
 import RequisitionHistory from "./pages/RequisitionHistory";
 
+// ฟังก์ชันดึง path ปัจจุบันโดยตัด Base path ออกอัตโนมัติ
+const useGHLocation = () => {
+  const base = "/WEB-VMO";
+  const [location, setLocation] = useState(() => {
+    const path = window.location.pathname;
+    return path.startsWith(base) ? path.slice(base.length) || "/" : path;
+  });
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      setLocation(path.startsWith(base) ? path.slice(base.length) || "/" : path);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [base]);
+
+  const navigate = (to: string) => {
+    const target = base + (to.startsWith("/") ? to : "/" + to);
+    window.history.pushState(null, "", target);
+    setLocation(to);
+  };
+
+  return [location, navigate] as const;
+};
+
+import { useState, useEffect } from "react";
+
 function Router() {
   return (
-    /* ใส่ base="/WEB-VMO" เพื่อให้ตรงกับ Path ของ GitHub Pages */
-    <WouterRouter base="/WEB-VMO">
+    <WouterRouter hook={useGHLocation}>
       <Switch>
-        <Route path={"/"} component={Home} />
-        <Route path={"/admin"} component={AdminDashboard} />
-        <Route path={"/history"} component={RequisitionHistory} />
-        <Route path={"/404"} component={NotFound} />
-        {/* Final fallback route */}
+        <Route path="/" component={Home} />
+        <Route path="/admin" component={AdminDashboard} />
+        <Route path="/history" component={RequisitionHistory} />
+        <Route path="/404" component={NotFound} />
+        {/* Fallback */}
         <Route component={NotFound} />
       </Switch>
     </WouterRouter>
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        switchable
-      >
+      <ThemeProvider defaultTheme="light" switchable>
         <TooltipProvider>
           <Toaster />
           <Router />
