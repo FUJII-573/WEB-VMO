@@ -166,7 +166,7 @@ export default function Home() {
       category: "custom",
       name: { th: "Performance Parts" },
       price: 10000,
-      img: "https://media.discordapp.net/attachments/904634942091296788/1529228211165335682/image.png?ex=6a612c41&is=6a5fdac1&hm=71d553c2c6cc3c34daab73261e35b938d96bba11d121d26fd42f8ff890f68b1c&=&format=webp&quality=lossless",
+      img: "https://cdn.discordapp.com/attachments/904634942091296788/1529228211165335682/image.png?ex=6a691541&is=6a67c3c1&hm=7d2544f17f77e1f01d90d4a5139565555b73273141e352d258538239eaf83660&",
     },
     {
       id: 104,
