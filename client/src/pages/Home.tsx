@@ -67,6 +67,7 @@ export default function Home() {
     "Nash Wilder",
     "Yume Kawasumi",
     "Edgar_Malone",
+    "Hiran Swagger",
   ];
 
   /* State Management */
