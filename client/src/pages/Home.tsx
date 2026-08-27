@@ -55,19 +55,14 @@ export default function Home() {
 
   /* Employee List */
   const employees = [
+    "Renley Koji",
     "Luther_Alexei_Morozov",
     "Jann_Burrell",
     "Kenji_Oyama",
-    "Tsukuyomi_Takuya",
-    "Shikishima_Sendou",
-    "Marco_Tempesta",
-    "Draco_banks",
-    "Jason Aoapo",
     "Ryan cooper",
     "Nash Wilder",
     "Yume Kawasumi",
     "Edgar_Malone",
-    "Hiran Swagger",
   ];
 
   /* State Management */
